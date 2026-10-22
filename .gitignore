@@ -1,0 +1,16 @@
+# Secrets — never commit real env
+.env
+.env.local
+
+# Python
+.venv/
+__pycache__/
+*.pyc
+*.pyo
+*.bak
+
+# Build / tooling
+dist/
+build/
+*.egg-info/
+nuitka-crash-report.xml

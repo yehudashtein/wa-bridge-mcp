@@ -1,0 +1,17 @@
+wa-bridge-mcp
+=============
+
+This project is a derivative work based on "whatsapp-mcp" by Luke Harries:
+
+    https://github.com/lharries/whatsapp-mcp
+    MIT License — Copyright (c) 2025 Luke Harries  (see LICENSE)
+
+Substantial modifications in this fork:
+  - Removed the bundled Go WhatsApp bridge and all direct SQLite access.
+  - The Python MCP server now talks exclusively to a separately-hosted WhatsApp
+    bridge over its HTTP REST API (/v1/*) — see whatsapp.py.
+  - Configuration via WHATSAPP_BRIDGE_URL + WHATSAPP_BRIDGE_TOKEN; defaults to
+    the hosted bridge at https://api.api-supp.com/v1.
+
+The MIT License from the upstream project is retained in LICENSE and applies to
+this derivative work. Modifications (c) 2026 Yehuda Goldshtein.

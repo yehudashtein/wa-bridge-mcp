@@ -1,0 +1,11 @@
+[project]
+name = "wa-bridge-mcp"
+version = "0.1.0"
+description = "MCP client for the WhatsApp bridge (api-supp) — talks to the bridge REST API over HTTP."
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = [
+    "httpx>=0.28.1",
+    "mcp[cli]>=1.6.0",
+    "requests>=2.32.3",
+]
