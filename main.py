@@ -20,6 +20,7 @@ from whatsapp import (
     list_messages as whatsapp_list_messages,
     list_chats as whatsapp_list_chats,
     get_chat as whatsapp_get_chat,
+    get_group as whatsapp_get_group,
     get_direct_chat_by_contact as whatsapp_get_direct_chat_by_contact,
     get_contact_chats as whatsapp_get_contact_chats,
     get_last_interaction as whatsapp_get_last_interaction,
@@ -124,6 +125,19 @@ def get_chat(chat_jid: str, include_last_message: bool = True) -> Dict[str, Any]
     """
     chat = whatsapp_get_chat(chat_jid, include_last_message)
     return chat
+
+@mcp.tool()
+def get_group(group_jid: str) -> Optional[Dict[str, Any]]:
+    """Get a WhatsApp group's metadata and participant list.
+
+    Args:
+        group_jid: The group JID (ends in @g.us).
+
+    Returns the group's subject/settings and `participants` — each with both JID
+    forms (`phone` and `lid`) and an `admin` flag ("admin"/"superadmin"/None).
+    Requires the WhatsApp session to be connected.
+    """
+    return whatsapp_get_group(group_jid)
 
 @mcp.tool()
 def get_direct_chat_by_contact(sender_phone_number: str) -> Dict[str, Any]:

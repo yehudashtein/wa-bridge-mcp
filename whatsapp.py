@@ -422,6 +422,19 @@ def search_contacts(query: str) -> List[Contact]:
     return [_contact_from_dict(c) for c in body.get("contacts") or []]
 
 
+def get_group(jid: str) -> Optional[dict]:
+    """Fetch a group's metadata + participant list from the bridge.
+
+    Returns the dict the bridge sends: {jid, subject, description, owner,
+    addressing_mode, announce, restrict, size, participants:[{jid, phone, lid,
+    admin}]}. Reads live from the WhatsApp connection; None if unavailable.
+    """
+    status, body = _get(f"/groups/{requests.utils.quote(jid, safe='@')}")
+    if status != 200 or not isinstance(body, dict):
+        return None
+    return body
+
+
 def get_contact_chats(jid: str, limit: int = 20, page: int = 0) -> List[Chat]:
     status, body = _get(
         f"/contacts/{requests.utils.quote(jid, safe='@')}/chats",
