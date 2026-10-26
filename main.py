@@ -21,6 +21,7 @@ from whatsapp import (
     list_chats as whatsapp_list_chats,
     get_chat as whatsapp_get_chat,
     get_group as whatsapp_get_group,
+    whoami as whatsapp_whoami,
     get_direct_chat_by_contact as whatsapp_get_direct_chat_by_contact,
     get_contact_chats as whatsapp_get_contact_chats,
     get_last_interaction as whatsapp_get_last_interaction,
@@ -125,6 +126,13 @@ def get_chat(chat_jid: str, include_last_message: bool = True) -> Dict[str, Any]
     """
     chat = whatsapp_get_chat(chat_jid, include_last_message)
     return chat
+
+@mcp.tool()
+def whoami() -> Optional[Dict[str, Any]]:
+    """Get THIS account's own WhatsApp identity — i.e. the number this MCP is
+    connected as. Returns {user_phone, user_jid, user_lid, name, connected, …}.
+    """
+    return whatsapp_whoami()
 
 @mcp.tool()
 def get_group(group_jid: str) -> Optional[Dict[str, Any]]:

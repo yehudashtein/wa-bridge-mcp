@@ -422,6 +422,17 @@ def search_contacts(query: str) -> List[Contact]:
     return [_contact_from_dict(c) for c in body.get("contacts") or []]
 
 
+def whoami() -> Optional[dict]:
+    """Return THIS tenant's own WhatsApp identity from the bridge:
+    {tenant, connection, connected, user_phone, user_jid, user_lid, name}.
+    The user_* fields are null until the session is paired/connected.
+    """
+    status, body = _get("/me/identity")
+    if status != 200 or not isinstance(body, dict):
+        return None
+    return body
+
+
 def get_group(jid: str) -> Optional[dict]:
     """Fetch a group's metadata + participant list from the bridge.
 
