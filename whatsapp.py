@@ -433,6 +433,22 @@ def whoami() -> Optional[dict]:
     return body
 
 
+def list_groups(query: Optional[str] = None) -> List[dict]:
+    """List the account's WhatsApp groups, optionally filtered by name.
+
+    Args:
+        query: Optional substring to match against group subjects (case-insensitive).
+
+    Each item: {jid, subject, size, is_admin, announce, restrict, owner}. Use
+    get_group(jid) for the full participant roster.
+    """
+    params = {"q": query} if query else None
+    status, body = _get("/groups", params=params)
+    if status != 200 or not isinstance(body, dict):
+        return []
+    return body.get("groups") or []
+
+
 def get_group(jid: str) -> Optional[dict]:
     """Fetch a group's metadata + participant list from the bridge.
 

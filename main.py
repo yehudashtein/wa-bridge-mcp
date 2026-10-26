@@ -21,6 +21,7 @@ from whatsapp import (
     list_chats as whatsapp_list_chats,
     get_chat as whatsapp_get_chat,
     get_group as whatsapp_get_group,
+    list_groups as whatsapp_list_groups,
     whoami as whatsapp_whoami,
     get_direct_chat_by_contact as whatsapp_get_direct_chat_by_contact,
     get_contact_chats as whatsapp_get_contact_chats,
@@ -133,6 +134,18 @@ def whoami() -> Optional[Dict[str, Any]]:
     connected as. Returns {user_phone, user_jid, user_lid, name, connected, …}.
     """
     return whatsapp_whoami()
+
+@mcp.tool()
+def list_groups(query: Optional[str] = None) -> List[Dict[str, Any]]:
+    """List the account's WhatsApp groups, optionally filtered by name.
+
+    Args:
+        query: Optional substring to match against group subjects (case-insensitive).
+
+    Returns a lightweight list (jid, subject, size, is_admin, …). Use get_group
+    for the full participant roster.
+    """
+    return whatsapp_list_groups(query)
 
 @mcp.tool()
 def get_group(group_jid: str) -> Optional[Dict[str, Any]]:
